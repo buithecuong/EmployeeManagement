@@ -26,17 +26,10 @@ import organisation.model.Employee;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "organisation.*")
-@PropertySource("classpath:/application.properties")
+
 public class AppConfig {
 
-	@Value("${hibernate.dialect}")
-	private String dialect;
-
-	@Value("${hibernate.hbm2ddl.auto}")
-	private String autoGen;
-
-	@Value("${hibernate.show_sql}")
-	private String sqlProperty;
+	
 
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
