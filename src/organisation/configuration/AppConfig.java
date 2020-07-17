@@ -20,6 +20,8 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import organisation.model.Employee;
 
@@ -28,10 +30,15 @@ import organisation.model.Employee;
 @EnableTransactionManagement
 @ComponentScan(basePackages = "organisation.*")
 @EntityScan( basePackages = {"organisation.model"} )
-public class AppConfig {
+
+public class AppConfig extends WebMvcConfigurerAdapter{
 
 	
-
+	@Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    }
+	
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
 		return new PropertySourcesPlaceholderConfigurer();
@@ -44,13 +51,14 @@ public class AppConfig {
 		dataSource.setUrl("jdbc:mysql://localhost:3306/project");
 		dataSource.setUsername("root");
 		dataSource.setPassword("Root@12345");
+		//dataSource.setUrl("jdbc:mysql://localhost:3306/cprt?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
 		return dataSource;
 	}
 
 	@Bean
 	public ViewResolver internalResourceViewResolver() {
 		InternalResourceViewResolver bean = new InternalResourceViewResolver();
-		bean.setPrefix("/WEB-INF/jsp/");
+		bean.setPrefix("/WEB-INF/views/");
 		bean.setSuffix(".jsp");
 		return bean;
 	}
