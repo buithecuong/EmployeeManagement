@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,6 +29,7 @@ import organisation.model.Employee;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "organisation.*")
+@EntityScan( basePackages = {"organisation.model"} )
 
 public class AppConfig extends WebMvcConfigurerAdapter{
 
@@ -46,10 +48,10 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 	DriverManagerDataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/cprt");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/project");
+		dataSource.setUsername("root");
+		dataSource.setPassword("Root@12345");
 		//dataSource.setUrl("jdbc:mysql://localhost:3306/cprt?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
-		dataSource.setUsername("cprt");
-		dataSource.setPassword("Asdf$1234");
 		return dataSource;
 	}
 
@@ -75,7 +77,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 		sessionBuilder.addAnnotatedClasses(Employee.class);
 		sessionBuilder.setProperty("hibernate.show_sql", "true");
 		sessionBuilder.setProperty("hibernate.hbm2ddl.auto", "update");
-		sessionBuilder.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		sessionBuilder.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
 		return sessionBuilder.buildSessionFactory();
 
 	}
