@@ -1,164 +1,156 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CRPT | TIMESHEET</title>
+ 
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link href="<c:url value="/resources/css/all.min.css" />" rel="stylesheet" type="text/css">
+  <!-- IonIcons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link href="<c:url value="/resources/css/adminlte.min.css" />" rel="stylesheet" type="text/css">
 </head>
-<style>
-Body {
-	font-family: Calibri, Helvetica, sans-serif;
-	background-color: white;
-}
+<!--
+`body` tag options:
 
-button {
-	background-color: #4CAF50;
-	width: 100%;
-	color: orange;
-	padding: 15px;
-	margin: 10px 0px;
-	border: none;
-	cursor: pointer;
-}
+  Apply one or more of the following classes to to the body tag
+  to get the desired effect
 
-form {
-	border: 3px solid #f1f1f1;
-}
+  * sidebar-collapse
+  * sidebar-mini
+-->
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Navbar -->
+  <div id="header">
+    <jsp:include page="navBar.jsp"/>
+</div>
+ 
+  <!-- /.navbar -->
 
-input[type=text] {
-	width: 100%;
-	display: inline-block;
-	box-sizing: border-box;
-}
+  <!-- Main Sidebar Container -->
+  <div id="header">
+    <jsp:include page="sideBar.jsp"/>
+</div>
 
-td {
-	margin: 8px 0;
-	
-	
-}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">CRPT Timesheet</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="adminIntro">Home</a></li>
+              <li class="breadcrumb-item active">TimeSheet</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-button:hover {
-	opacity: 0.7;
-}
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <h3 class="card-title">Submit working hours/date</h3>
+                  <a href="javascript:void(0);">View Report</a>
+                </div>
+              </div>
+              <div class="card-body">
+                <form:form name="regForm" method="post" action="save" modelAttribute="timeSheetForm">
 
-.container {
-	padding: 25px;
-	background-color: lightblue;
-}
+                <%
+                    out.println("The timesheet for the day " + request.getParameter("day"));
+                %><br />
 
-table {
-	border: 1px solid black;
-}
-</style>
-<SCRIPT language="javascript">
-	var tableRowCount = null;
+                <input type="button" value="Add Row" onclick="addRow('dataTable')" />
 
-	function addRow(tableID) {
+                <input type="button" value="Delete Row"
+                    onclick="deleteRow('dataTable')" />
 
-		var table = document.getElementById(tableID);
+                <table id="dataTable" width="350px" border="1">
+                    <tr>
+                        <th></th>
+                        <th>Job_Title</th>
+                        <th>Hours</th>
+                        <th>Status</th>
+                    </tr>
+                    <c:forEach items="${timeSheetForm.timeSheetRecords}" var="timeSheet">
+                        <tr>
+                            <td><input type="checkbox" name="chk" /></td>
+                            <td><input name="timeSheet[${counter.index}].jobTitle"
+                                value="${timeSheet.jobTitle}" /></td>
+                            <td><input name="timeSheet[${counter.index}].hours"
+                                value="${timeSheet.hours}" /></td>
+                            <td><input name="timeSheet[${counter.index}].status"
+                                value="${timeSheet.status}" /></td>
+                        </tr>
+                    </c:forEach>
+                    
+                </table>
+                <br />
+                <input type="submit" value="Save" />
+                </form:form>
+               </div>
+            </div>
+            <!-- /.card -->
 
-		var rowCount = table.rows.length;
-		var row = table.insertRow(rowCount);
+            
+          </div>
+          <div class="col-lg-6">
+          <h1 class="m-0 text-dark">History</h1>
+          </div>
+          <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 
-		var cell1 = row.insertCell(0);
-		var element1 = document.createElement("input");
-		element1.type = "checkbox";
-		element1.name = "chkbox[]";
-		cell1.appendChild(element1);
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
 
-		/* var cell2 = row.insertCell(1);
-		cell2.innerHTML = rowCount; */
+  <!-- Main Footer -->
+   <div id="header">
+    <jsp:include page="footer.jsp"/>
+</div>
+</div>
+<!-- ./wrapper -->
 
-		var cell3 = row.insertCell(1);
-		var element3 = document.createElement("input");
-		element3.type = "text";
-		element3.name = "txtbox[]";
-		cell3.appendChild(element3);
+<!-- REQUIRED SCRIPTS -->
 
-		var cell4 = row.insertCell(2);
-		var element4 = document.createElement("input");
-		element4.type = "text";
-		element4.name = "txtbox[]";
-		cell4.appendChild(element4);
+<!-- jQuery -->
+<script src="resources/jquery/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="resources/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE -->
+<script src="dist/js/adminlte.js"></script>
 
-		var cell5 = row.insertCell(3);
-		var element5 = document.createElement("input");
-		element5.type = "text";
-		element5.name = "txtbox[]";
-		cell5.appendChild(element5);
-
-		tableRowCount = table.rows.length
-
-	}
-
-	function deleteRow(tableID) {
-		try {
-			var table = document.getElementById(tableID);
-			var rowCount = table.rows.length;
-
-			for (var i = 0; i < rowCount; i++) {
-				var row = table.rows[i];
-				var chkbox = row.cells[0].childNodes[0];
-				if (null != chkbox && true == chkbox.checked) {
-					table.deleteRow(i);
-					rowCount--;
-					i--;
-				}
-			}
-			tableRowCount = table.rows.length
-
-		} catch (e) {
-			alert(e);
-		}
-	}
-</SCRIPT>
-<body>
-
-
-
-	<form:form name="regForm" method="post" action="save" modelAttribute="timeSheetForm">
-
-		<%
-			out.println("The timesheet for the day " + request.getParameter("day"));
-		%><br />
-
-		<input type="button" value="Add Row" onclick="addRow('dataTable')" />
-
-		<input type="button" value="Delete Row"
-			onclick="deleteRow('dataTable')" />
-
-		<table id="dataTable" width="350px" border="1">
-			<tr>
-				<th></th>
-				<th>Job_Title</th>
-				<th>Hours</th>
-				<th>Status</th>
-			</tr>
-			<c:forEach items="${timeSheetForm.timeSheetRecords}" var="timeSheet">
-				<tr>
-					<td><input type="checkbox" name="chk" /></td>
-					<td><input name="timeSheet[${counter.index}].jobTitle"
-						value="${timeSheet.jobTitle}" /></td>
-					<td><input name="timeSheet[${counter.index}].hours"
-						value="${timeSheet.hours}" /></td>
-					<td><input name="timeSheet[${counter.index}].status"
-						value="${timeSheet.status}" /></td>
-				</tr>
-			</c:forEach>
-			
-		</table>
-		<br />
-		<input type="submit" value="Save" />
-	</form:form>
-
-
-
-
-
-
-
+<!-- OPTIONAL SCRIPTS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<script src="dist/js/demo.js"></script>
+<script src="dist/js/pages/dashboard.js"></script>
 </body>
 </html>
