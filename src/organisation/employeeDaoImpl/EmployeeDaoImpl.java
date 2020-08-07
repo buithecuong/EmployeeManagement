@@ -79,12 +79,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public List<DailyTimeSheet> getAllTimeSheetByDate() {
 		Session session = sessionFactory.openSession();
-		System.out.printf("test inside DAO before");
 		@SuppressWarnings("unchecked")		
 		Query query = session.createQuery("SELECT new organisation.model.DailyTimeSheet(sum(hours), date) "
 		  + "from TimeSheet group by date");
 	    List<DailyTimeSheet> dailyTimeSheetList = query.list();
-		System.out.printf("test inside DAO after");
 		session.close();
 		return dailyTimeSheetList;
 	}
