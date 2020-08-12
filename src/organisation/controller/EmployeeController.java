@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import organisation.employeeService.EmployeeService;
-import organisation.timesheetService.TimesheetService;
 import organisation.model.Employee;
 import organisation.model.TimeSheet;
 import organisation.model.DailyTimeSheet;
@@ -288,42 +287,4 @@ public class EmployeeController {
 		}
 		return new ModelAndView("showDailyTimesheetChart","dataPoints", dailytimesheetList);
 	}
-	
-	
-	
-	
-	private static List<Contact> contacts = new ArrayList<Contact>();
-
-	static {
-		contacts.add(new Contact("Barack", "Obama", "barack.o@whitehouse.com", "147-852-965"));
-		contacts.add(new Contact("George", "Bush", "george.b@whitehouse.com", "785-985-652"));
-		contacts.add(new Contact("Bill", "Clinton", "bill.c@whitehouse.com", "236-587-412"));
-		contacts.add(new Contact("Ronald", "Reagan", "ronald.r@whitehouse.com", "369-852-452"));
-	}
-	
-	@RequestMapping(value = "/getContact", method = RequestMethod.GET)
-	public ModelAndView get() {
-		
-		ContactForm contactForm = new ContactForm();
-		contactForm.setContacts(contacts);
-		
-		return new ModelAndView("add_contact" , "contactForm", contactForm);
-	}
-	
-	@RequestMapping(value = "/saveContact", method = RequestMethod.POST)
-	public ModelAndView save(@ModelAttribute("contactForm") ContactForm contactForm) {
-		System.out.println(contactForm);
-		System.out.println(contactForm.getContacts());
-		List<Contact> contacts = contactForm.getContacts();
-		
-		if(null != contacts && contacts.size() > 0) {
-			EmployeeController.contacts = contacts;
-			for (Contact contact : contacts) {
-				System.out.printf("%s \t %s \n", contact.getFirstname(), contact.getLastname());
-			}
-		}
-		
-		return new ModelAndView("show_contact", "contactForm", contactForm);
-	}
-
 }
