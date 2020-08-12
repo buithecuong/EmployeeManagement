@@ -1,14 +1,8 @@
 package organisation.employeeDaoImpl;
 
 
-import java.util.*;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-import org.hibernate.transform.Transformers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Properties;
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -16,11 +10,17 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import organisation.employeeDao.EmployeeDao;
+import organisation.model.DailyTimeSheet;
 import organisation.model.Employee;
 import organisation.model.TimeSheet;
-import organisation.model.DailyTimeSheet;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
@@ -189,6 +189,47 @@ public class EmployeeDaoImpl implements EmployeeDao {
             return new PasswordAuthentication(FROM_ADDRESS, PASSWORD);
         }
     }
+	
+	
+	public Boolean insertTimeSheet(List<TimeSheet> tms) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		
+		for(TimeSheet t : tms)
+		{
+			session.save(t);
+			 if (tms.indexOf(t) % 2 == 0 ) { //20, same as the JDBC batch size
+			        //flush a batch of inserts and release memory:
+			        session.flush();
+			        session.clear();
+			    }
+		}
+		session.flush();
+        session.clear();
+		tx.commit();
+		session.close();
+		return true;
+	}
+
+	@Override
+	public TimeSheet getTimeSheetDetails(int id) {
+		Session session = sessionFactory.openSession();
+		TimeSheet ts = session.load(TimeSheet.class, id);
+        return ts;
+	}
+
+	@Override
+	public int deleteTimeSheetDetails(int id) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		TimeSheet ts =(TimeSheet)session.get(TimeSheet.class,id);
+        
+		session.delete(ts);
+		session.flush();
+		tx.commit();
+		session.close();
+		return id;
+	}
 	
 }
 

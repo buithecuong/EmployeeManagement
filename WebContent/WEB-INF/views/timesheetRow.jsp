@@ -68,19 +68,19 @@ table {
 
 		
 		<table id="TimeSheet" width="350px" border="1">
+		<input type="hidden" id="date" name="date" value="<%=request.getParameter("day")%>">
 			<tr>
 				<th>Job_Title</th>
 				<th>Hours</th>
 				<th>Status</th>
-				<th>Date</th>
+				
 
 			</tr>
 			<tr>
 				<td><input type="text" name="jobTitle" id="jobTitle" /></td>
 				<td><input type="number" name="hours" id="hours" /></td>
 				<td><input type="text" name="status" id="status" /></td>
-				<td><input type="text" name="date" id="date"
-					value="<%=request.getParameter("day")%>" /></td>
+				
 			</tr>
 
 		</table>

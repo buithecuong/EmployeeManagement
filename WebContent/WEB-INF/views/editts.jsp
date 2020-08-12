@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CRPT | TIMESHEET</title>
+  <title>CRPT | EMPLOYEE</title>
  
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -78,12 +78,12 @@ td
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">CRPT Timesheet</h1>
+            <h1 class="m-0 text-dark">CRPT Employee</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="adminIntro">Home</a></li>
-              <li class="breadcrumb-item active">TimeSheet</li>
+              <li class="breadcrumb-item active">TImeSheet</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -99,44 +99,45 @@ td
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Timesheet History</h3>
+                  <h3 class="card-title">TimeSheet Edit</h3>
                   <a href="javascript:void(0);">View Report</a>
                 </div>
               </div>
               <div class="card-body">
-                 <center><h1>List of Timesheet</h1></center>
-                   <table border=1 frame=void rules=rows class="table" style="width: 300px" align="center">
-                     <tr>
-                     <th>SrNo</th>
-                       <th>Job Title</th>
-                       <th>Hours</th>
-                       <th>Status</th>
-                       <th>Date</th>
-                       <th>Edit/Delete</th>
-                     </tr>
-                     <c:forEach items="${timesheetList}" var="record">
-                     <tr>
-                       <td width="60" align="center">${record.srNo}</td>
-                       <td width="60" align="center">${record.jobTitle}</td>
-                       <td width="60" align="center">${record.hours}</td>
-                       <td width="60" align="center">${record.status}</td>
-                       <td width="60" align="center">${record.date}</td>
-                       <td width="60" align="center"><a href="editts?id=${record.srNo}">Edit</a>/<a href="deletets?id=${record.srNo}" onclick="return confirm('Do you really want to delete?')">Delete</a></td>
-                     </tr>
-                  </c:forEach>
-                </table>
-                <br>
-                   <br>   <br>   <br>   <br>   
-                <center>
-                    <a href="welcomeAdmin">HOME </a>
-                </center>
+                <p>Time Sheet: ${timesheet}</p>
+                <center><h1>Edit Timesheet</h1></center>
+
+                <form:form method="POST" modelAttribute="timesheet" action="updateSavets">
+                    <table align= "center">
+                        <tr>
+                            <td>Id :</td>
+                            <td><form:input path="srNo" /></td>
+                        </tr>
+                        <tr>
+                            <td>Job Title :</td>
+                            <td><form:input path="jobTitle" /></td>
+                        </tr>
+                        <tr>
+                            <td>Hours :</td>
+                            <td><form:input path="hours" /></td>
+                        </tr>
+                       
+                            <td>Status :</td>
+                            <td><form:input path="status" /></td>
+                        </tr>
+                        <tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Save" /></td>
+                        </tr>
+                    </table>
+                </form:form>
                </div>
             </div>
             <!-- /.card -->
 
             
           </div>
-          
           <!-- /.col-md-6 -->
           <!-- /.col-md-6 -->
         </div>

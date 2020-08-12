@@ -111,7 +111,7 @@ td
                     <table align= "center">
                         <tr>
                             <td>Id :</td>
-                            <td><form:input path="id" /></td>
+                            <td><form:input path="employee.id" /></td>
                         </tr>
                         <tr>
                             <td>Name :</td>

@@ -2,15 +2,17 @@ package organisation.timesheetService;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import organisation.timesheetDao.TimesheetDao;
+import organisation.employeeDaoImpl.EmployeeDaoImpl;
 import organisation.model.TimeSheet;
+import organisation.timesheetDao.TimesheetDaoImpl;
 
+@Service
 public class TimesheetServiceImpl implements TimesheetService {
-	
-	@Autowired
-	TimesheetDao TimesheetDao;
+
+	TimesheetDaoImpl TimesheetDao = new TimesheetDaoImpl();
+	EmployeeDaoImpl EmployeeDao = new EmployeeDaoImpl();
 
 	TimeSheet timeSheet;
 
@@ -38,6 +40,6 @@ public class TimesheetServiceImpl implements TimesheetService {
 		return timesheet;
 	}
 
-
 	
+
 }

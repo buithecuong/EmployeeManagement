@@ -143,4 +143,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Boolean sendEmail(String[] recepients, String[] bccRecepients, String subject, String message) {
 		return employeeDao.sendEmail(recepients, bccRecepients, subject, message);
 	}
+
+	@Override
+	public Boolean insertTimesheet(List<TimeSheet> tms) {
+		Boolean insertStatus = employeeDao.insertTimeSheet(tms);
+		return insertStatus;
+		
+	}
+	
+	@Transactional
+	@Override
+	public TimeSheet TimesheetDetails(int id) {
+		return employeeDao.getTimeSheetDetails(id);
+		
+	}
+
+	@Override
+	public int deleteTimeSheet(int id) {
+		return employeeDao.deleteTimeSheetDetails(id);
+	}
+	
 }

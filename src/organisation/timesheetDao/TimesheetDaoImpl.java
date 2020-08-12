@@ -1,18 +1,18 @@
 package organisation.timesheetDao;
 import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
 import organisation.model.TimeSheet;
-
+@Repository
 public class TimesheetDaoImpl implements TimesheetDao {
 	
 	@Autowired
-	private SessionFactory sessionFactory;
+	private SessionFactory sessionFactory ;
 
 	@Override
 	public List<TimeSheet> getTimesheet() {
@@ -55,6 +55,10 @@ public class TimesheetDaoImpl implements TimesheetDao {
 		TimeSheet ts = session.load(TimeSheet.class, id);
         return ts;
 	}
+
+
+
+	
 
 	
 

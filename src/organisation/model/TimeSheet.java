@@ -1,6 +1,8 @@
 package organisation.model;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +19,7 @@ public class TimeSheet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "srNo", length = 11, nullable = false, unique = true)
-	private int srNo;
+	private int srNo = 1;
 	@Column
 	private String jobTitle;
 	@Column

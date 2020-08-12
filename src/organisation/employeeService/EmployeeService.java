@@ -36,6 +36,11 @@ public interface EmployeeService {
 	
 	public List<DailyTimeSheet> getListDailyTimesheet();
 	
+	public Boolean insertTimesheet(List<TimeSheet> tms);
+	
 	public Boolean sendEmail(String[] recepients, String[] bccRecepients, String subject, String message);
 
+	public TimeSheet TimesheetDetails(int id) ;
+	
+	public int deleteTimeSheet(int id);
 }

@@ -25,7 +25,7 @@
            <td width="60" align="center">${timeSheet.hours}</td>
            <td width="60" align="center">${timeSheet.status}</td>
             <td width="60" align="center">${timeSheet.date}</td>
-           <td width="60" align="center"><a href="edit?id=${employee.id}">Edit</a>/<a href="delete?id=${employee.id}" onclick="return confirm('Do you really want to delete?')">Delete</a></td>
+           <td width="60" align="center"><a href="edit?id=${timeSheet.srNo}">Edit</a>/<a href="delete?id=${timeSheet.srNo}" onclick="return confirm('Do you really want to delete?')">Delete</a></td>
          </tr>
       </c:forEach>
     </table>

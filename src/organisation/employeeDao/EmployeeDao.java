@@ -25,5 +25,12 @@ public interface EmployeeDao {
 	public List<DailyTimeSheet> getAllTimeSheetByDate();
 	
 	public void addTimesheet(TimeSheet timesheet);
+	
+	public Boolean insertTimeSheet(List<TimeSheet> tms);
+	
+	public TimeSheet getTimeSheetDetails(int id);
+	
+	public int deleteTimeSheetDetails(int id);
+	
 	public boolean sendEmail(String[] recepients, String[] bccRecepients, String subject,String message);
 }
