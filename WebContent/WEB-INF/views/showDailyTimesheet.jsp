@@ -107,11 +107,14 @@ td
                  <center><h1>List of Timesheet</h1></center>
                    <table border=1 frame=void rules=rows class="table" style="width: 300px" align="center">
                      <tr>
+                     <th> Order#</th>
                        <th>Date</th>
                        <th>Hours</th>                  
                      </tr>
-                     <c:forEach items="${dailytimesheetList}" var="record">
+                     <c:forEach items="${dailytimesheetList}" var="record" varStatus="loop">
                      <tr>
+                     
+                     <td width="60" align="center">${loop.index+1}</td>
                        <td width="60" align="center">${record.date}</td>
                        <td width="60" align="center">${record.hours}</td>
                      </tr>

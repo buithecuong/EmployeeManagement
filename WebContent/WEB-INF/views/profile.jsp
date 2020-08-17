@@ -103,10 +103,7 @@
                 
             <br><br><br>v
                 <center>
-                    <a href="welcome">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="logout">Logout</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                    <a href="datepicker">Daily Timesheet</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    
+                    <a href="edit?id=${employee.id}">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     
                 </center>
                </div>
@@ -114,50 +111,6 @@
             <!-- /.card -->
 
             
-          </div>
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-header border-0">
-                <h3 class="card-title">Timesheet History</h3>
-                <div class="card-tools">
-                  <a href="#" class="btn btn-sm btn-tool">
-                    <i class="fas fa-download"></i>
-                  </a>
-                  <a href="#" class="btn btn-sm btn-tool">
-                    <i class="fas fa-bars"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="card-body">
-                <center><h1>TIMESHEET</h1></center>
-                   <table border=1 frame=void rules=rows class="table" style="width: 300px" align="center" >
-                     <tr>
-                       
-                       <th>  Id  </th>
-                       <th>  jobTitle  </th>
-                       <th>  hours  </th>
-                        <th>  statusCheck  </th>
-                        <th>  date  </th>
-                       <th>  Edit/Delete</th>
-                     </tr>
-                     <c:forEach items="${timesheetList}" var="timesheet">
-                     <tr>
-                       <td width="60" align="center">${timesheet.id}</td>
-                       <td width="60" align="center">${timesheet.jobTitle}</td>
-                       <td width="60" align="center">${timesheet.hours}</td>
-                       <td width="60" align="center">${timesheet.statusCheck}</td>
-                       <td width="60" align="center">${timesheet.datee}</td>
-                       <td width="60" align="center"><a href="edit?id=${timesheet.id}">Edit</a>/<a href="delete?id=${timesheet.id}" onclick="return confirm('Do you really want to delete?')">Delete</a></td>
-                     </tr>
-                  </c:forEach>
-                </table>
-                <br>
-                   <br>   <br>   <br>   <br>   
-                <center>
-                    <a href="home">BACK </a>
-                </center>
-              </div>
-            </div>
           </div>
           <!-- /.col-md-6 -->
           <!-- /.col-md-6 -->

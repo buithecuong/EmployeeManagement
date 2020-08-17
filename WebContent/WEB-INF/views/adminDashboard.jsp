@@ -108,27 +108,54 @@
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Total working hours/week</h3>
+                  <h3 class="card-title">Total working hours/week: ${totalTimeSheetHours} hrs</h3>
                   <a href="javascript:void(0);">View Report</a>
                 </div>
               </div>
               <div class="card-body">
                 <div class="d-flex">
                   
-                  <c:if test="${error != null}">
-					<div  style='width: 50%; margin-left: auto; margin-right: auto; margin-top: 200px; text-align: center;'>${error}</div>
-				</c:if>
-				<c:if test="${error == null}">
-				<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-				</c:if>
-				<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-                </div>
+                  </div>
+                
+                               
+                 <div class="card-body table-responsive p-0">
+                <table class="table table-striped table-valign-middle">
+                  <thead>
+                  <tr>
+                    <th>Employee No</th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Team</th>
+                    <th>Role</th>
+                    <th>Edit/Delete</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <c:forEach items="${employeeList}" var="record" varStatus="loop">
+                     <tr>
+                       <td width="60" align="center">
+                       <img src="${pageContext.request.contextPath}/resources/images/employee.png" alt="Task#" class="img-circle img-size-32 mr-2">
+                       ${loop.index+1}
+                   </td>
+                   <td width="60" align="center">${record.name}</td>
+                   <td width="60" align="center">${record.username}</td>
+                   <td width="60" align="center">${record.team}</td>
+                   <td width="60" align="center">${record.status}</td>
+                   <td width="60" align="center"><a href="edit?id=${record.id}">Edit</a>/<a href="delete?id=${record.id}" onclick="return confirm('Do you really want to delete?')">Delete</a></td>
+                   </td>
+                  </tr>
+                  </c:forEach>                 
+                  
+                  </tbody>
+                </table>
+              </div>
+
                 <!-- /.d-flex -->
 
                 <div class="position-relative mb-4">
                   <canvas id="visitors-chart" height="200"></canvas>
                 </div>
-
+                
                 <div class="d-flex flex-row justify-content-end">
                   <span class="mr-2">
                     <i class="fas fa-square text-primary"></i> This Week
@@ -142,148 +169,8 @@
             </div>
             <!-- /.card -->
 
-            <div class="card">
-              <div class="card-header border-0">
-                <h3 class="card-title">Active Week Working Hours</h3>
-                <div class="card-tools">
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-download"></i>
-                  </a>
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-bars"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
-                  <thead>
-                  <tr>
-                    <th>srNo</th>
-                    <th>Username</th>
-                    <th>Tasks</th>
-                    <th>Hours</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <c:forEach items="${employeetimesheetList}" var="record">
-                     <tr>
-                       <td width="60" align="center">
-                       <img src="dist/img/default-150x150.png" alt="Task 1" class="img-circle img-size-32 mr-2">
-                       ${record.srNo}
-                   </td>
-                   <td width="60" align="center">${record.employee.username}</td>
-                   <td width="60" align="center">${record.jobTitle}</td>
-                   <td width="60" align="center">${record.hours}</td>
-                   <td width="60" align="center">${record.status}</td>
-                   <td width="60" align="center">
-                       <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        ${record.date}
-                      </small>
-                   </td>
-                  </tr>
-                  </c:forEach>                 
-                  
-                  </tbody>
-                </table>
-              </div>
-            </div>
+           
             <!-- /.card -->
-          </div>
-          <!-- /.col-md-6 -->
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-header border-0">
-                <div class="d-flex justify-content-between">
-                  <h3 class="card-title">Performance</h3>
-                  <a href="javascript:void(0);">View Report</a>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="d-flex">
-                  <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">${totalTimeSheetHours} hrs</span>
-                    <span>Working Hours Over Time</span>
-                  </p>
-                  <p class="ml-auto d-flex flex-column text-right">
-                    <span class="text-success">
-                      <i class="fas fa-arrow-up"></i> 33.1%
-                    </span>
-                    <span class="text-muted">Since last month</span>
-                  </p>
-                </div>
-                <!-- /.d-flex -->
-
-                <div class="position-relative mb-4">
-                  <canvas id="sales-chart" height="200"></canvas>
-                </div>
-
-                <div class="d-flex flex-row justify-content-end">
-                  <span class="mr-2">
-                    <i class="fas fa-square text-primary"></i> This year
-                  </span>
-
-                  <span>
-                    <i class="fas fa-square text-gray"></i> Last year
-                  </span>
-                </div>
-              </div>
-            </div>
-            <!-- /.card -->
-
-            <div class="card">
-              <div class="card-header border-0">
-                <h3 class="card-title">Quarterly Overview</h3>
-                <div class="card-tools">
-                  <a href="#" class="btn btn-sm btn-tool">
-                    <i class="fas fa-download"></i>
-                  </a>
-                  <a href="#" class="btn btn-sm btn-tool">
-                    <i class="fas fa-bars"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                  <p class="text-success text-xl">
-                    <i class="ion ion-ios-refresh-empty"></i>
-                  </p>
-                  <p class="d-flex flex-column text-right">
-                    <span class="font-weight-bold">
-                      <i class="ion ion-android-arrow-up text-success"></i> 12%
-                    </span>
-                    <span class="text-muted">PERFORMANCE RATE</span>
-                  </p>
-                </div>
-                <!-- /.d-flex -->
-                <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                  <p class="text-warning text-xl">
-                    <i class="ion ion-ios-cart-outline"></i>
-                  </p>
-                  <p class="d-flex flex-column text-right">
-                    <span class="font-weight-bold">
-                      <i class="ion ion-android-arrow-up text-warning"></i> 0.8%
-                    </span>
-                    <span class="text-muted">OVERTIME RATE</span>
-                  </p>
-                </div>
-                <!-- /.d-flex -->
-                <div class="d-flex justify-content-between align-items-center mb-0">
-                  <p class="text-danger text-xl">
-                    <i class="ion ion-ios-people-outline"></i>
-                  </p>
-                  <p class="d-flex flex-column text-right">
-                    <span class="font-weight-bold">
-                      <i class="ion ion-android-arrow-down text-danger"></i> 1%
-                    </span>
-                    <span class="text-muted">VIOLATION RATE</span>
-                  </p>
-                </div>
-                <!-- /.d-flex -->
-              </div>
-            </div>
           </div>
           <!-- /.col-md-6 -->
         </div>

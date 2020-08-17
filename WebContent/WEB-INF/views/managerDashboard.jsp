@@ -76,7 +76,7 @@
 
   <!-- Main Sidebar Container -->
   <div id="header">
-    <jsp:include page="sideBar.jsp"/>
+    <jsp:include page="managerSideBar.jsp"/>
 </div>
 
   <!-- Content Wrapper. Contains page content -->
@@ -118,11 +118,8 @@
                   <c:if test="${error != null}">
 					<div  style='width: 50%; margin-left: auto; margin-right: auto; margin-top: 200px; text-align: center;'>${error}</div>
 				</c:if>
-				<c:if test="${error != null}">
-					<div  style='width: 50%; margin-left: auto; margin-right: auto; margin-top: 200px; text-align: center;'>${error}</div>
-				</c:if> test="${error == null}">
 				<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-				</c:if>
+			
 				<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
                 </div>
                 
